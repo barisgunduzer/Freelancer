@@ -1,0 +1,27 @@
+{
+  "name": "freelancer",
+  "version": "1.0.0",
+  "description": "freelancer portfolio management",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "freelancer",
+    "portfolio",
+    "management"
+  ],
+  "author": "Barış Gündüzer",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "mongoose": "^5.13.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12",
+    "prettier": "^2.4.0"
+  }
+}
