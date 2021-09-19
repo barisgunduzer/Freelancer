@@ -1,4 +1,4 @@
-# Agency (Node.js)
+# Freelancer (Node.js)
 
 Freelancer simple and single web app for kickstart to Node.js. (Express, EJS, Mongoose)
 #### Usage:

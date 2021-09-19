@@ -1,0 +1,127 @@
+<% if (user.role === 'admin') { %>
+
+<%- include('partials/_header.ejs') -%>
+    <body id="page-top">
+        <%- include('partials/_navigation.ejs') -%>
+        <!-- Portfolio Section-->
+        <section class="page-section portfolio" id="portfolio">
+            <div class="container">
+                <!-- Icon Divider-->
+                <hr class="invisible pb-5">
+                <% if (flashMessages) { %> <% if (flashMessages.success) { %>
+                    <div class="alert alert-success"><%= flashMessages.success %></div>
+                  <% } else if (flashMessages.error) { %>
+                    <div class="alert alert-danger"><%= flashMessages.error %></div>
+                  <% } %> <% } %>
+                <div class="row justify-content-center">                                        
+                    <!-- Add Portfolio Item Modal -->
+                    <div class="portfolio-modal modal fade" id="addPortfolioItemModal" tabindex="-1" aria-labelledby="addPortfolioItemModal" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                                <div class="modal-body text-center pb-5">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-8">
+                                                <form method="POST" action="/add" class="tm-contact-form" encType="multipart/form-data">
+                                                    <!-- Add Portfolio Item Modal - Title-->
+                                                    <div class="form-floating mb-3">
+                                                        <input class="form-control" id="title" type="text" name="title" placeholder="Project Title: " data-sb-validations="required"></input>
+                                                        <label for="title">Title: </label>                                                    
+                                                    </div>                                                
+                                                    <!-- Add Portfolio Item Modal - Image-->
+                                                    <div class="form-floating mb-3">
+                                                        <input type="file" name="image" id="image" class="form-control">
+                                                        <label for="image">Image (900x650px): </label>
+                                                    </div>
+                                                    <!-- Add Portfolio Item Modal - Description-->
+                                                    <div class="form-floating mb-3">
+                                                        <textarea class="form-control" id="description" name="description" type="text" placeholder="Project description: " style="height: 10rem" data-sb-validations="required"></textarea>
+                                                        <label for="description">Description: </label>
+                                                        <div class="invalid-feedback" data-sb-feedback="message:required">A description is required.</div>
+                                                    </div>
+                                                    <!-- Add Portfolio Item Modal - Role (Hidden)-->
+                                                    <div class="form-floating mb-3">
+                                                        <input type="hidden" name="role" value="<%= user.role %>" class="form-control">                                                        
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <button class="btn btn-primary btn-xl" type="submit">Create Portfolio Item</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Portfolio Items & Modals-->                 
+                    <% for (let i = user.projects.length - 1; i >= 0; i--) { %>
+                    <!-- Portfolio Item<%=i+1%>-->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal<%=i+1%>">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-edit fa-3x"></i></div>
+                            </div>
+                            <img class="img-fluid" src="<%= user.projects[i].image %>" alt="..." />
+                        </div>
+                    </div>                                        
+                    <!-- Portfolio Edit Modal<%=i+1%>-->
+                    <div class="portfolio-modal modal fade" id="portfolioModal<%=i+1%>" tabindex="-1" aria-labelledby="portfolioModal<%=i+1%>" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                                <div class="modal-body text-center pb-5">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-8">
+                                                <form method="POST" action="/update/<%= user.projects[i]._id %>?_method=PUT " class="tm-contact-form" encType="multipart/form-data">
+                                                    <!-- Portfolio Edit Modal - Title-->
+                                                    <div class="form-floating mb-3">
+                                                        <input class="form-control" id="title" type="text" name="title" placeholder="Project Title: " value="<%= user.projects[i].title %>" data-sb-validations="required"></input>
+                                                        <label for="title">Title: </label>                                                    
+                                                    </div>                                                
+                                                    <!-- Portfolio Edit Modal - Image-->
+                                                    <div class="form-floating mb-3">
+                                                        <img class="img-fluid rounded mb-5" src="<%= user.projects[i].image %>" alt="..." />
+                                                        <input type="file" name="image" class="form-control">                                                        
+                                                    </div>
+                                                    <!-- Portfolio Edit Modal - Description-->
+                                                    <div class="form-floating mb-3">
+                                                        <textarea class="form-control" id="description" name="description" type="text" placeholder="Project description: " style="height: 10rem" data-sb-validations="required"><%= user.projects[i].description %></textarea>
+                                                        <label for="description">Description: </label>
+                                                        <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <button class="btn btn-primary btn-xl"  type="submit">Update Project</button>
+                                                        <a class="btn btn-danger btn-xl" href="/delete/<%= user.projects[i]._id %>?_method=DELETE" onclick="return confirm('ARE YOU SURE ?')">Delete Project</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                    <!-- Add Portfolio Item Button -->
+                    <div class="row justify-content-center mb-4">
+                        <button class="btn btn-primary btn-xl col-md-1" type="submit" data-bs-toggle="modal" data-bs-target="#addPortfolioItemModal"><span class="fas fa-plus fw-bolder"></span></button>
+                    </div> 
+                </div>
+            </div>
+        </section>    
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
+
+<% } %>
