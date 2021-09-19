@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 
 // Connect DB
 mongoose
-  .connect('mongodb://localhost/freelancer-test-db', {
+  .connect('mongodb+srv://freelancer-db:PGA0nYpBI5psr60U@cluster0.m97di.mongodb.net/freelancer-db?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -45,7 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-      mongoUrl: 'mongodb://localhost/freelancer-test-db',
+      mongoUrl: 'mongodb+srv://freelancer-db:PGA0nYpBI5psr60U@cluster0.m97di.mongodb.net/freelancer-db?retryWrites=true&w=majority',
     }),
   })
 );
@@ -71,7 +71,7 @@ app.use('*', (req, res, next) => {
 app.use('/', mainRouter);
 
 // Configs
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
