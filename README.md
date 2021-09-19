@@ -1,16 +1,24 @@
-# Freelancer (Node.js)
+# Freelancer (Node.js):
 
-Freelancer simple and single web app for kickstart to Node.js. (Express, EJS, Mongoose)
-#### Usage:
+Freelancer is a Node.js starter project about portfolio management task
+# Using Technologies:
+* Express,
+* EJS,
+* Mongoose,
+* Bcrypt,
+* Connect-Flash,
+* Nodemailer
+
+# Using Methodologies:
+* Session Handling,
+* User Validation,
+* Flash Messages,
+* Postman REST Client,
+
+## Usage:
 
 - clone and run `npm i` && `npm start`
 
-#### Heroku:
+## Heroku:
+* https://freelancer-web-app.herokuapp.com/
 
-
-
-#### Useful Links:
-
-- https://nodejs.org/en/
-- https://www.npmjs.com/package/express
-- https://www.npmjs.com/package/mongoose
